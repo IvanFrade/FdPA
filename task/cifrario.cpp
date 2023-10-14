@@ -2,33 +2,38 @@
    Cifrario di Cesare
    Leggere 3 char da tastiera, stampare 3 char corrispettivi shiftati 3 posizioni avanti
    Validi solo caratteri alfabetici minuscoli (26), tutti gli altri diventano *
-   Riporto (x diventa a, ecc.)
+   Attenzione al riporto (x diventa a, y diventa b ecc.)
 
-   Usare solo: dichiarazione, assegnazione, if-else, operatore ternario 
-   I caratteri minuscoli vanno da 97 (a) a 122 (z)
+   Usare solo: dichiarazione, assegnazione, if-else, forse operatore ternario?
+   Nella codifica ASCII i caratteri minuscoli vanno da 97 (a) a 122 (z)
 */
 
 #include <iostream>
 
-const int offset = 97; // Inizio caratteri considerati
-const int length = 26; // Numero caratteri considerati -
-const int shift = 3;   // Numero di caratteri scalati nella codifica
+using namespace std;
 
 int main() {
     char c1, c2, c3; // Caratteri in input
 
-    std::cout << "Inserire tre caratteri: " << std::endl;
-
-    std::cin >> c1;
-    std::cin >> c2;
-    std::cin >> c3;
-
-    (c1 >= offset && c1 <= offset + length - 1) ? c1 = offset + ((c1 + shift - offset) % length) : c1 = '*';
-    (c2 >= offset && c2 <= offset + length - 1) ? c2 = offset + ((c2 + shift - offset) % length) : c2 = '*';
-    (c3 >= offset && c3 <= offset + length - 1) ? c3 = offset + ((c3 + shift - offset) % length) : c3 = '*';
+    cout << "Inserire tre caratteri: " << endl;
+    cin >> c1 >> c2 >> c3;
     
-    std::cout << "Cifrario di Cesare: ";
-    std::cout << c1 << ' ' << c2 << ' ' << c3 << ' ' << std::endl;
+    // Se il carattere in input è compreso tra 'a' e 'z' lo shifto di 3, altrimenti lo setto a '*'
+    (c1 >= 'a' && c1 <= 'z') ? c1 += 3 : c1 = '*';
+    
+    // Se il carattere originale era x, y o z, incrementato di 3 "sfora" dai caratteri previsti, 
+    // quindi riparto dalla 'a' sottraendo 26
+    if (c1 > 'z') c1 -= 26; 
+
+    // Ripeto per gli altri due char in input
+    (c2 >= 'a' && c2 <= 'z') ? c2 += 3 : c2 = '*';
+    if (c2 > 'z') c2 -= 26;
+
+    (c3 >= 'a' && c3 <= 'z') ? c3 += 3 : c3 = '*';
+    if (c3 > 'z') c3 -= 26;
+
+    cout << "Cifrario di Cesare: ";
+    cout << c1 << ' ' << c2 << ' ' << c3 << ' ' << endl;
     
     return 0;
 }
