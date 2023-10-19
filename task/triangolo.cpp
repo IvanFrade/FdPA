@@ -8,6 +8,7 @@
    Se h <= 0, continuare a richiedere l'inserimento finche' h > 0
    Edge case h = 1?
 
+   Deadline martedi' 24/10
 */
 #include <iostream>
 
@@ -19,7 +20,7 @@ int main() {
     cout << "Inserire un valore intero (> 0): ";
     cin >> h;
 
-    // Se l'input non e' valido, entro in un ciclo con condizione di uscita input valido
+    // Se l'input non e' valido, entro in un ciclo con condizione di uscita = input valido
     while (h <= 0) {
         cout << "Input errato.\nInserire un valore intero (> 0): ";
         cin >> h;
