@@ -9,8 +9,10 @@
    Edge case h = 1?
 
    Deadline martedi' 24/10
+   Usando if, while, for, cmath
 */
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -26,24 +28,14 @@ int main() {
         cin >> h;
     }
 
-    // Stampo prima le prime h righe
-    for (int i = 1; i <= h; i++) {
+    // Con altezza h avro' 2h-1 righe totali
+    for (int i = h - 1; i > -h; i--) {
         for (int j = 0; j < h; j++) {       // Ogni riga ha sempre h caratteri (h*2 con gli extra spazi)
-            if (j < h-i) cout << "  ";      // Se i rappresenta il numero di *, h-i e' il numero di spazi vuoti
+            if (j < abs(i)) cout << "  ";   // Abs(i) e' il numero di spazi vuoti, la differenza con h il numero di *
             else cout << "* ";
         }
 
         cout << endl;                       // Vado a capo dopo ogni riga
-    }
-
-    // Stampo le righe rimanenti
-    for (int i = 1; i < h; i++) {
-        for (int j = 0; j < h; j++) {        
-            if (j < i) cout << "  ";        // Essendo l'ordine invertito, qui i rappresenta il numero di spazi vuoti
-            else cout << "* ";
-        }
-
-        cout << endl;
     }
 
     return 0;
