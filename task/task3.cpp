@@ -21,21 +21,21 @@
 
 */
 #include <iostream>
-#include <cmath>
+#include <cmath> 
 
 using namespace std;
 
-const int N_BIT = 8;
-
 int main() {
-    int bin[N_BIT], op;
+    int bin[4]; // Array di 4 bit
+    int op;     // Operazione scelta dall'utente
 
-    for (int i = 0; i < N_BIT; i++) {
-        cout << "Inserisci il bit nella posizione " << N_BIT-1-i << ": ";
+    for (int i = 0; i < 4; i++) {
+        cout << "Inserisci il bit nella posizione " << 3-i << ": ";
         cin >> bin[i];
 
-        while (bin[i] != 0 && bin[i] != 1) {
-            cout << "Errore!\nInserisci il bit nella posizione " << N_BIT-1-i << ": ";
+        // Controllo se il bit inserito e' valido
+        while (bin[i] < 0 || bin[i] > 1) {
+            cout << "Errore!\nInserisci il bit nella posizione " << 3-i << ": ";
             cin >> bin[i];
         }
     }
@@ -46,54 +46,69 @@ int main() {
     cout << "\t2 - Calcola opposto: " << endl;
     cin >> op;
 
+    // Controllo che l'operazione sia valida
     while (op < 0 || op > 2) {
         cout << "Errore!" << endl;
         cin >> op;
     }
 
+
     switch (op) {
+        // Stampa del numero binario tale e quale
         case 0:
             cout << "Numero binario: ";
-            for (int i = 0; i < N_BIT; i++) 
+            for (int i = 0; i < 4; i++) 
                 cout << bin[i];
             break;
 
+        // Conversione a decimale e stampa
         case 1:
         {   
             int dec = 0;
-            for (int i = N_BIT; i > 0; i--) {
-                dec += bin[i-1] * pow(2, N_BIT-i);
+
+            // Sommo le potenze crescenti di 2 quando il bit e' 1, partendo dal meno significativo
+            for (int i = 3; i >= 0; i--) {
+                dec += bin[i] * pow(2, 3-i);
             }
 
+            // Se il numero in complemento a 2 iniziava con 1, era negativo
+            // Quindi sottraggo 16 (2^nBit)
             if (bin[0])
-                dec -= pow(2, N_BIT);
+                dec -= pow(2, 4);
 
             cout << "Numero decimale: " << dec;
             break;
         }
 
+        // Calcolo e stampa dell'opposto (in binario)
         case 2:
         {
-            // hardcoded, non funziona con N_BIT != 4
+            // Caso particolare: l'opposto di 1000 non puo' essere rappresentato con 4 bit
             if (bin[0] && !bin[1] && !bin[2] && !bin[3]) {
                 cout << "Overflow!";
                 break;
             }
 
+            /* 
+            Per il calcolo dell'opposto inverto tutti i bit e aggiungo 1
+            Uso una variabile di appoggio che indica se ci sia riporto o no
+            Inizializzata a true perche' devo sempre aggiungere 1 all'inizio della conversione
+            Inverto il bit solo se non c'e' riporto, in caso contrario rimane uguale
+            Infine controllo se il bit sia 1, in caso positivo posso settare riporto a falso 
+            Unico caso di possibile "overflow" gia' eliminato prima
+            */
             bool riporto = true;
 
-            for (int i = N_BIT-1; i >= 0; i--) {
-                ++bin[i] %= 2;
-                if (riporto) {
-                    if (!bin[i])
-                        riporto = false;
-                    
-                    ++bin[i] %= 2;
-                }
+            for (int i = 3; i >= 0; i--) {
+                if (!riporto)                               
+                    ++bin[i] %= 2;      // Inversione bit
+                
+                if (bin[i])
+                    riporto = false;
             }
 
             cout << "Opposto: ";
-            for(int i = 0; i < N_BIT; i++)
+            for(int i = 0; i < 4; i++)
                 cout << bin[i];
             break;
         }
