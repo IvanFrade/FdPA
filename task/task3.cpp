@@ -101,8 +101,9 @@ int main() {
 
             for (int i = 3; i >= 0; i--) {
                 if (!riporto)                               
-                    ++bin[i] %= 2;      // Inversione bit
-                
+                    //++bin[i] %= 2;      // Inversione bit
+                    bin[i] = !bin[i];     // Inversione bit
+                 
                 if (bin[i])
                     riporto = false;
             }
