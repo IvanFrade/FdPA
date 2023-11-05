@@ -8,9 +8,7 @@
 
    Controllo su input operazione, solo un'operazione
 
-   Stampa array: semplice
-
-   Conversione decimale: i positivi semplice, i negativi sono [-7, -1] e corrispondono a [8, 15]
+   Conversione decimale: i positivi somma delle potenze, i negativi sono [-7, -1] e corrispondono a [8, 15]
    quindi posso sottrarre 16 e trovare il negativo senza fare la conversione al contrario
    -8 caso particolare con errore overflow
 
@@ -21,19 +19,18 @@
 
 */
 #include <iostream>
-#include <cmath> 
+#include <cmath>        
 
 using namespace std;
 
 int main() {
-    int bin[4]; // Array di 4 bit
-    int op;     // Operazione scelta dall'utente
+    int bin[4]; // Input dell'utente
+    int op;     // Operazione scelta 
 
     for (int i = 0; i < 4; i++) {
         cout << "Inserisci il bit nella posizione " << 3-i << ": ";
         cin >> bin[i];
 
-        // Controllo se il bit inserito e' valido
         while (bin[i] < 0 || bin[i] > 1) {
             cout << "Errore!\nInserisci il bit nella posizione " << 3-i << ": ";
             cin >> bin[i];
@@ -46,7 +43,6 @@ int main() {
     cout << "\t2 - Calcola opposto: " << endl;
     cin >> op;
 
-    // Controllo che l'operazione sia valida
     while (op < 0 || op > 2) {
         cout << "Errore!" << endl;
         cin >> op;
@@ -64,7 +60,7 @@ int main() {
         // Conversione a decimale e stampa
         case 1:
         {   
-            int dec = 0;
+            int dec = 0;    // Numero in decimale
 
             // Sommo le potenze crescenti di 2 quando il bit e' 1, partendo dal meno significativo
             for (int i = 3; i >= 0; i--) {
@@ -74,7 +70,7 @@ int main() {
             // Se il numero in complemento a 2 iniziava con 1, era negativo
             // Quindi sottraggo 16 (2^nBit)
             if (bin[0])
-                dec -= pow(2, 4);
+                dec -= 16;
 
             cout << "Numero decimale: " << dec;
             break;
@@ -101,7 +97,6 @@ int main() {
 
             for (int i = 3; i >= 0; i--) {
                 if (!riporto)                               
-                    //++bin[i] %= 2;      // Inversione bit
                     bin[i] = !bin[i];     // Inversione bit
                  
                 if (bin[i])
@@ -115,7 +110,7 @@ int main() {
         }
 
         default:
-            cout << "Errore imprevisto!"; // Non dovrebbe mai succedere
+            cout << "Errore imprevisto"; // Non dovrebbe mai succedere
     }
 
     return 0;
