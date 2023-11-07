@@ -60,7 +60,7 @@ int main() {
         // Conversione a decimale e stampa
         case 1:
         {   
-            int dec = 0;    // Numero in decimale
+            int dec = 0;    // Numero in decimale  
 
             // Sommo le potenze crescenti di 2 quando il bit e' 1, partendo dal meno significativo
             for (int i = 3; i >= 0; i--) {
