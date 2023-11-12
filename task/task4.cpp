@@ -23,42 +23,50 @@ int main() {
         if (strcmp(parola2, "$") == 0)
             break;
 
+        int len1 = strlen(parola1);
+        int len2 = strlen(parola2);
+
         if (strcmp(parola1, parola2) == 0) {
             cout << "Le due parole sono uguali." << endl << "Reverse: ";
 
-            for (int i = strlen(parola1); i > 0; i--)
+            for (int i = len1; i > 0; i--)
                 cout << parola1[i - 1];
 
-            cout << endl << endl;
+            cout << endl;
         }
 
         else {
-            if (strlen(parola1) > strlen(parola2)) {
+            if (len1 > len2) {
                 char tmp[100];
                 strcpy(tmp, parola1);
                 strcpy(parola1, parola2);
                 strcpy(parola2, tmp);
+
+                int t = len1;
+                len1 = len2;
+                len2 = t;
             }
 
-            if (strncmp(parola1, parola2, strlen(parola1)) == 0)
-                cout << "La parola " << parola1 << " e' prefisso di " << parola2 << endl << endl;
-            else {
-                for (int i = 0; i < strlen(parola1) / 2; i++) {
-                    char tmp = parola1[i];
-                    parola1[i] = parola1[strlen(parola1) - i - 1];
-                    parola1[strlen(parola1) - i - 1] = tmp;
-                }
+            if (strncmp(parola1, parola2, len1) == 0)
+                cout << "La parola " << parola1 << " e' prefisso di " << parola2 << endl;
+            
+            if (parola1[len1 - 1] == parola2[len2 - 1]) {
+                bool suffisso = true;
 
-                for (int i = 0; i < strlen(parola1); i++) 
-                    parola2[i] = parola2[strlen(parola2) - i - 1];
-                    if (strncmp(parola1, parola2, strlen(parola1)) == 0)
-                        cout << "La parola " << parola1 << " e' suffisso di " << parola2 << endl << endl;
+                for (int i = len1 - 1; i > 0; i--) 
+                    if (parola1[i - 1] != parola2[len2 - len1 + i - 1])
+                        suffisso = false;
+
+                if (suffisso)
+                    cout << "La parola " << parola1 << " e' suffisso di " << parola2 << endl;
             }
-                
-            cout << endl << endl;
         }
 
+        cout << endl;
+
     } while (1);
+
+    cout << "Addio!" << endl;
 
     return 0;   
 }
