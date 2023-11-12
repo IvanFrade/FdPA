@@ -16,25 +16,33 @@ int main() {
     } while (n <= 0);
 
     int matrice1[m][n], matrice2[m][n];
+    int matriceSomma[m][n];
 
-    for (int i = 0; i < m * n; i++) {
-        cout << "Inserisci l'elemento della prima matrice: ";
-        cin >> matrice1[i % m][i / m];
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++) {
+            cout << "Inserisci gli elementi della prima matrice: ";
+            cin >> matrice1[i][j];
+        }
+
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++) {
+            cout << "Inserisci gli elementi della seconda matrice: ";
+            cin >> matrice2[i][j];
+        }
+    
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++) 
+            matriceSomma[i][j] = matrice1[i][j] + matrice2[i][j];
+
+    cout << "Somma delle matrici: " << endl;
+
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) 
+            cout << matriceSomma[i][j] << " ";
+        
+        cout << endl;
     }
 
-    for (int i = 0; i < m * n; i++) {
-        cout << "Inserisci l'elemento della seconda matrice: ";
-        cin >> matrice2[i % m][i / m];
-        matrice2[i % m][i / m] += matrice1[i % m][i / m];
-    }
-
-    cout << "Somma delle matrici:";
-
-    for (int i = 0; i < m * n; i++) {
-        if (!(i % m))
-            cout << endl;
-        cout << " [ " << matrice2[i % m][i / m] << " ] ";
-    }
-
+    return 0;
 
 }
