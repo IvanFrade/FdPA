@@ -1,5 +1,16 @@
+/**
+ * Task 4 - Deadline 14/11
+ * Si cmath/cstring, no puntatori?
+ * 
+ * Lettura di due parole (lunghezza max 100, no spazi o a capo)
+ * Stampa se sono uguali (con stampa della parola al contrario)
+ * Una suffisso dell'altra
+ * Una suffisso dell'altra (possono succedere entrambi insieme)
+ * 
+ * Ripetuto, condizione di uscita stringa "$"
+*/
+
 #include <iostream>
-#include <cmath>
 #include <cstring>
 
 using namespace std;
@@ -23,33 +34,41 @@ int main() {
         if (strcmp(parola2, "$") == 0)
             break;
 
-        int len1 = strlen(parola1);
-        int len2 = strlen(parola2);
 
+        // Check se le due parole sono uguali
         if (strcmp(parola1, parola2) == 0) {
             cout << "Le due parole sono uguali." << endl << "Reverse: ";
 
-            for (int i = len1; i > 0; i--)
+            // Stampa parola reverse
+            for (int i = strlen(parola1); i > 0; i--)
                 cout << parola1[i - 1];
 
             cout << endl;
         }
 
         else {
+            int len1 = strlen(parola1);
+            int len2 = strlen(parola2);
+
+            // Tengo sempre la parola piu' corta come prima
+            // Se e' piu' lunga, inverto parole e loro lunghezze
             if (len1 > len2) {
                 char tmp[100];
                 strcpy(tmp, parola1);
                 strcpy(parola1, parola2);
                 strcpy(parola2, tmp);
 
-                int t = len1;
-                len1 = len2;
-                len2 = t;
+                len1 = strlen(parola1);
+                len2 = strlen(parola2);
             }
 
+            // Check prefisso
             if (strncmp(parola1, parola2, len1) == 0)
                 cout << "La parola " << parola1 << " e' prefisso di " << parola2 << endl;
             
+            // Check suffisso
+            // Una parola puo' essere sia prefisso che suffisso dell'altra, niente else if
+            // Controllo se l'ultimo carattere e' uguale e scorro all'indietro
             if (parola1[len1 - 1] == parola2[len2 - 1]) {
                 bool suffisso = true;
 
