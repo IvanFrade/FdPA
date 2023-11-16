@@ -10,6 +10,8 @@ struct persona {
 
 int main() {
     persona rubrica[100];
+    int nContatti = 0;
+
     int op;
 
     cout << "*** Rubrica ***" << endl;
@@ -20,13 +22,39 @@ int main() {
         cout << "\t3 - Cancella contatto" << endl;
         cout << "\t4 - Esci" << endl;
         cin >> op;
+        cin.ignore();
 
         switch (op)
         {
         case 1:
+            if (nContatti == 0){
+                cout << "Rubrica vuota!" << endl;
+                break;
+            }
+
+            for (int i = 0; i < nContatti; i++) {
+                cout << rubrica[i].nome << " " << rubrica[i].cognome << " " << rubrica[i].numero << endl;
+            }
+            
             break;
 
         case 2:
+            persona p;
+
+            cout << "Inserisci il nome del contatto da aggiungere: ";
+            cin.getline(p.nome, 64);
+            
+            cout << "Inserisci il cognome del contatto da aggiungere: ";
+            cin.getline(p.cognome, 64);
+            
+            cout << "Inserisci il numero del contatto da aggiungere: ";
+            cin.getline(p.numero, 64);
+
+            rubrica[nContatti] = p;
+            nContatti++;
+
+            cout << endl << "Contatto aggiunto!" << endl;
+
             break;
 
         case 3:
