@@ -20,6 +20,8 @@ int main() {
     cout << "*** Rubrica ***" << endl;
 
     do {
+        // C'era un'incongruenza tra consegna ed esempi di esecuzione nell'ordine delle operazioni nel menu'
+        // Ho preso per buoni gli esempi di esecuzione
         cout << "\t1 - Visualizza rubrica" << endl;
         cout << "\t2 - Inserisci contatto" << endl;
         cout << "\t3 - Cancella contatto" << endl;
