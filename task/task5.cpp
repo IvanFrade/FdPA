@@ -147,25 +147,25 @@ int main() {
             found = 0;
 
             cout << "Inserisci il nome del contatto da cancellare: ";
-            cin.getline(nome, 64);
+            cin.getline(nome, 65);
 
             while (cin.fail()) {
                 cin.clear();
                 cin.ignore(9999, '\n');
 
                 cout << "Nome troppo lungo! Puoi inserire max 64 caratteri. Riprova: ";
-                cin.getline(nome, 64);
+                cin.getline(nome, 65);
             }
 
             cout << "Inserisci il cognome del contatto da cancellare: ";
-            cin.getline(cognome, 64);
+            cin.getline(cognome, 65);
 
             while (cin.fail()) {
                 cin.clear();
                 cin.ignore(9999, '\n');
 
                 cout << "Cognome troppo lungo! Puoi inserire max 64 caratteri. Riprova: ";
-                cin.getline(cognome, 64);
+                cin.getline(cognome, 65);
             }
 
             // Ricerca del contatto da elimiare
