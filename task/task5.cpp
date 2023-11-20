@@ -8,7 +8,7 @@ using namespace std;
 struct persona { 
     char nome[65];
     char cognome[65];
-    char numero[11]; // 10 cifre + carattere di terminazione
+    char numero[11]; 
 };
 
 int main() {
@@ -20,7 +20,6 @@ int main() {
     cout << "*** Rubrica ***" << endl;
 
     do {
-        // Stampa menu
         cout << "\t1 - Visualizza rubrica" << endl;
         cout << "\t2 - Inserisci contatto" << endl;
         cout << "\t3 - Cancella contatto" << endl;
@@ -37,7 +36,7 @@ int main() {
             continue;
         }
 
-        cin.ignore(); // Ignora il \n alla fine
+        cin.ignore(); // Consuma il \n alla fine
 
         switch (op)
         {
@@ -47,9 +46,8 @@ int main() {
                 break;
             }
 
-            for (int i = 0; i < nContatti; i++) {
+            for (int i = 0; i < nContatti; i++) 
                 cout << rubrica[i].nome << " " << rubrica[i].cognome << " " << rubrica[i].numero << endl;
-            }
             
             break;
 
