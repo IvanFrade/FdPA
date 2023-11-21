@@ -3,41 +3,51 @@
 
 using namespace std;
 
-struct contatore {
+struct Contatore {
     int lettere;
     int cifre;
 };
 
-contatore separa(char* s, char* alpha, char* num) {
-    contatore contatore = {0, 0};
+Contatore separa(char* s, char* alpha, char* num) {
+    Contatore contatore = {0, 0};
 
     for (int i = 0; i < strlen(s); i++) {
         if (s[i] >= 48 && s[i] <= 57 ) {
+
             num[contatore.cifre] = s[i];
             contatore.cifre++;
         }
 
-        if ((s[i] >= 65 && s[i] <= 90) || 
-             (s[i] >= 97 && s[i] <= 122)) {
+        else if ((s[i] >= 65 && s[i] <= 90) || 
+            (s[i] >= 97 && s[i] <= 122)) {
+
                 alpha[contatore.lettere] = s[i];
                 contatore.lettere++;
-             }
+        }
 
     }
 
     return contatore;
-
 }
 
 
 int main() {
-    char str[100];
+    char str[101];
     char SAlpha[100], SNum[100];
+    Contatore contatore;
 
     cout << "Inserisci una stringa: ";
-    cin.getline(str, 100);
+    cin.getline(str, 101);
 
-    contatore contatore = separa(str, SAlpha, SNum);
+    while (cin.fail()) {
+        cin.clear();
+        cin.ignore(9999, '\n');
+
+        cout << "Lunghezza max 100 caratteri! Riprova: ";
+        cin.getline(str, 101);
+    }
+
+    contatore = separa(str, SAlpha, SNum);
 
     cout << "Caratteri alfabetici" << endl;
 
