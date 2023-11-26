@@ -1,71 +1,76 @@
 #include <iostream>
 #include <cstring>
+#include <cctype>
 
 using namespace std;
 
-// Contatore lettere e cifre
-struct Contatore {
-    int lettere;
-    int cifre;
-};
-
-// Riceve in input una stringa, estrae cifre e lettere e le inserisce 
-// in due stringhe separate
-// Restituisce il numero di lettere e cifre trovate nella stringa input
-Contatore separa(char* s, char* alpha, char* num) {
-    Contatore contatore = {0, 0};
-
-    for (int i = 0; i < strlen(s); i++) {
-        if (s[i] >= 48 && s[i] <= 57 ) {            // Cifre
-
-            num[contatore.cifre] = s[i];
-            contatore.cifre++;
-        }
-
-        else if ((s[i] >= 65 && s[i] <= 90) ||      // Lettere
-            (s[i] >= 97 && s[i] <= 122)) {
-
-            alpha[contatore.lettere] = s[i];
-            contatore.lettere++;
-        }
-
-    }
-
-    return contatore;
-}
-
-
-int main() {
-    char str[101];                  // Stringa input
-    char SAlpha[100];               // Lettere nell'input
-    char SNum[100];                 // Cifre nell'input
-    Contatore contatore;            // Contatore cifre e lettere nell'input
-
+// Legge da std input una stringa di max 100 caratteri
+void leggiStringa(char input[]) {
     cout << "Inserisci una stringa: ";
-    cin.getline(str, 101);
+    cin.getline(input, 101);
 
     while (cin.fail()) {
         cin.clear();
         cin.ignore(9999, '\n');
 
         cout << "Lunghezza max 100 caratteri! Riprova: ";
-        cin.getline(str, 101);
+        cin.getline(input, 101);
+    }
+}
+
+// Riceve in input una stringa, estrae cifre e lettere e le inserisce 
+// in due stringhe separate, aggiornando i rispettivi contatori
+void separa(char s[], char alpha[], char num[], int& nLettere, int& nCifre) {
+
+    for (int i = 0; i < strlen(s); i++) {
+        if (isdigit(s[i])) {            // Cifre
+            num[nCifre] = s[i];
+            nCifre++;
+        }
+
+        else if (isalpha(s[i])) {       // Lettere
+            alpha[nLettere] = s[i];
+            nLettere++;
+        }
+
+    }
+}
+
+// Stampa delle due substring
+void stampa(char lettere[], char cifre[], int nLettere, int nCifre) {
+    if (nLettere <= 0)
+        cout << "La stringa non contiene caratteri alfabetici";
+    else {
+        cout << "Caratteri alfabetici" << endl;
+
+        for (int i = 0; i < nLettere; i++) {
+            cout << lettere[i] << " ";
+        }
     }
 
-    contatore = separa(str, SAlpha, SNum);
+    if (nCifre <= 0)
+        cout << endl << "La stringa non contiene caratteri numerici" << endl;
+    else {
+        cout << endl << "Caratteri numerici" << endl;
 
-    // Stampa
-    cout << "Caratteri alfabetici" << endl;
-
-    for (int i = 0; i < contatore.lettere; i++) {
-        cout << SAlpha[i] << " ";
+        for (int i = 0; i < nCifre; i++) {
+            cout << cifre[i] << " ";
+        }
     }
+}
 
-    cout << endl << "Caratteri numerici" << endl;
+int main() {
+    char str[101];                  // Stringa input
+    char SAlpha[100];               // Lettere nell'input
+    char SNum[100];                 // Cifre nell'input
+    int nLettere = 0, nCifre = 0;   // Contatore cifre e lettere nell'input
 
-    for (int i = 0; i < contatore.cifre; i++) {
-        cout << SNum[i] << " ";
-    }
+    leggiStringa(str);
+
+    separa(str, SAlpha, SNum, nLettere, nCifre);
+
+    stampa(SAlpha, SNum, nLettere, nCifre);
+    
 
     return 0;
 }
