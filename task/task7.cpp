@@ -8,13 +8,20 @@
  * 
  * No altre funzioni
  * deadline 5/12 mezzanotte
+ * 
 */
 #include <iostream>
 
 using namespace std;
 
 int main() {
+    int input;
 
+    do {
+        cout << "Inserisci un numero: ";
+        cin >> input;
+
+    } while (input >= 0);
 
     return 0;
 }
