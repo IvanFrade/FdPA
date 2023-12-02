@@ -15,13 +15,41 @@
 using namespace std;
 
 int main() {
-    int input;
+    int input, indice = 0, contatore = 0;
+    int* A[10];
+    bool found = false;
 
-    do {
-        cout << "Inserisci un numero: ";
+    while (true) {
+        cout << "Inserire un numero: ";
         cin >> input;
 
-    } while (input >= 0);
+        if (input < 0)
+            break;
+
+        found = false;
+
+        for (int i = 0; i < indice; i++)
+            if (input == *A[i]) {
+                A[indice] = A[i];
+                found = true;
+
+                break;
+            }
+
+        if (!found) {
+            A[indice] = new int(input);
+
+            contatore++;
+        }
+        
+        indice++;
+    }
+
+    cout << "Allocate " << contatore << " variabili" << endl;
+
+    cout << "Contenuto di A: " << endl;
+    for (int i = 0; i < indice; i++) 
+        cout << *A[indice] << " ";
 
     return 0;
 }
