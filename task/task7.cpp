@@ -37,7 +37,11 @@ int main() {
             }
 
         if (!found) {
-            A[indice] = new int(input);
+            A[indice] = new int;
+            if (A[indice] == NULL) {
+                cout << "Memoria insufficiente!";
+                return -1;
+            }
 
             contatore++;
         }
