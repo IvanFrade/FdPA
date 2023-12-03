@@ -6,24 +6,43 @@
  * 
  * stampare il numero di variabili allocate e A
  * 
+ * deallocare?
+ * 
  * No altre funzioni
- * deadline 5/12 mezzanotte
+ * deadline 5/12
  * 
 */
+
 #include <iostream>
 
 using namespace std;
 
+const int MAX_ELEMENTI = 1000;
+
 int main() {
-    int input;              // Valore inserito dall'utente      
-    int indice = 0;         // Indice dell'array di puntatori
-    int contatore = 0;      // Contatore variabili dinamiche allocate
-    int* A[1000];           // Array di puntatori
-    bool found = false;     // Flag di appoggio
+    int input;                  // Valore inserito dall'utente      
+    int indice = 0;             // Indice dell'array di puntatori
+    int contatore = 0;          // Contatore variabili dinamiche allocate
+    int* A[MAX_ELEMENTI];       // Array di puntatori
+    bool found = false;         // Flag di appoggio
 
     while (true) {
+        if (contatore == MAX_ELEMENTI) {
+            cout << "Spazio esaurito - array pieno!" << endl;
+            break; 
+        }
+
         cout << "Inserire un numero: ";
         cin >> input;
+
+        // Controllo su input
+        while (cin.fail()) {
+            cin.clear();
+            cin.ignore(9999, '\n');
+
+            cout << "Input invalido! Riprova: ";
+            cin >> input;
+        }
 
         // Condizione di uscita: input < 0
         if (input < 0)
@@ -42,9 +61,9 @@ int main() {
 
         // Se non presente devo allocare una nuova variabile
         if (!found) {
-            A[indice] = new int;
+            A[indice] = new int;    
 
-            // Controllo memoria insufficiente
+            // Controllo se l'heap e' pieno
             if (A[indice] == NULL) {
                 cout << "Memoria insufficiente!";
                 return -1;
