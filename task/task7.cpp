@@ -15,35 +15,44 @@
 using namespace std;
 
 int main() {
-    int input, indice = 0, contatore = 0;
-    int* A[10];
-    bool found = false;
+    int input;              // Valore inserito dall'utente      
+    int indice = 0;         // Indice dell'array di puntatori
+    int contatore = 0;      // Contatore variabili dinamiche allocate
+    int* A[1000];           // Array di puntatori
+    bool found = false;     // Flag di appoggio
 
     while (true) {
         cout << "Inserire un numero: ";
         cin >> input;
 
+        // Condizione di uscita: input < 0
         if (input < 0)
             break;
 
         found = false;
 
+        // Controllo se il valore inserito e' gia' presente
         for (int i = 0; i < indice; i++)
             if (input == *A[i]) {
-                A[indice] = A[i];
+                A[indice] = A[i];       // Se presente aggiungo un altro puntatore alla stessa variabile allocata
                 found = true;
 
                 break;
             }
 
+        // Se non presente devo allocare una nuova variabile
         if (!found) {
             A[indice] = new int;
+
+            // Controllo memoria insufficiente
             if (A[indice] == NULL) {
                 cout << "Memoria insufficiente!";
                 return -1;
             }
 
-            contatore++;
+            *A[indice] = input;     // Assegno alla variabile il valore di input
+
+            contatore++;            // Aumenta il contatore di variabili allocate
         }
         
         indice++;
@@ -51,9 +60,22 @@ int main() {
 
     cout << "Allocate " << contatore << " variabili" << endl;
 
-    cout << "Contenuto di A: " << endl;
-    for (int i = 0; i < indice; i++) 
-        cout << *A[indice] << " ";
+    // Stampa e deallocazione delle variabili
+    for (int i = 0; i < indice; i++) {
+        cout << *A[i] << " ";
+
+        // Per la deallocazione controllo se lo stesso puntatore riappare piu' tardi nell'array
+        // Se questa e' l'ultima o unica apparizione, posso deallocare la variabile puntata
+        found = false;
+        for (int j = i + 1; j < indice; j++)
+            if (A[i] == A[j]) {
+                found = true;
+                break;
+            }
+        
+        if (!found)
+            delete A[i];
+    }
 
     return 0;
 }
